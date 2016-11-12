@@ -4,8 +4,10 @@ using System.Collections;
 public class GameScript : MonoBehaviour {
 	public GameObject background;
 	public GameObject maincamera;
-	public GameObject unit;
-	public GameObject spawn;
+	public GameObject enemyspawn;
+	public GameObject enemy;
+
+	float timeLeft = 2.0f;
 	// Use this for initialization
 	void Start () {
 
@@ -73,11 +75,21 @@ public class GameScript : MonoBehaviour {
 		maincamera.transform.position = pos;
 			
 		Debug.Log ("Mouse x = " + pos.x + "  Mouse y = " + pos.y);
+
+		timeLeft -= Time.deltaTime;
+		if(timeLeft < 0)
+		{
+			spawnEnemy ();
+			timeLeft = 10.0f;
+		}
+	}
+
+	public void spawnEnemy()
+	{
+		Instantiate(enemy, enemyspawn.transform.position, transform.rotation);
 	}
 
 
-	void OnMouseDown(){
-		Instantiate(unit, spawn.transform.position, transform.rotation);
-	}
+
 
 }
