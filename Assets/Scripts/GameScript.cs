@@ -7,7 +7,7 @@ public class GameScript : MonoBehaviour {
 	public GameObject enemyspawn;
 	public GameObject enemy;
 
-	float timeLeft = 2.0f;
+	float timeLeft = 1.0f;
 	// Use this for initialization
 	void Start () {
 
@@ -74,19 +74,21 @@ public class GameScript : MonoBehaviour {
 
 		maincamera.transform.position = pos;
 			
-		Debug.Log ("Mouse x = " + pos.x + "  Mouse y = " + pos.y);
+		//Debug.Log ("Mouse x = " + pos.x + "  Mouse y = " + pos.y);
 
 		timeLeft -= Time.deltaTime;
 		if(timeLeft < 0)
 		{
 			spawnEnemy ();
-			timeLeft = 10.0f;
+			timeLeft = 5.0f;
 		}
 	}
 
 	public void spawnEnemy()
 	{
-		Instantiate(enemy, enemyspawn.transform.position, transform.rotation);
+		var e = (GameObject)Instantiate(enemy, enemyspawn.transform.position, transform.rotation);
+		GameObject canvas = GameObject.Find("Canvas");
+		e.transform.parent = canvas.transform;
 	}
 
 
